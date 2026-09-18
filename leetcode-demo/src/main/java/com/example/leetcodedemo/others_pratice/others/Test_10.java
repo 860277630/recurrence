@@ -1,4 +1,4 @@
-package com.example.leetcodedemo.others;
+package com.example.leetcodedemo.others_pratice.others;
 
 import java.util.*;
 
@@ -9,31 +9,31 @@ import java.util.*;
  *
  * 如图所示，原目录树及收缩后示意：
  *
- * root  root
+ *   root                    root
  *
- * ├ B ├ B/C/E
+ *   ├ B                     ├ B/C/E
  *
- * │ └ C │ ├ N
+ *   │ └ C                   │ ├ N
  *
- * │ └ E │ └ M
+ *   │   └ E                 │ └ M
  *
- * │ ├ N └ F
+ *   │     ├ N               └ F
  *
- * │ └ M ├ H
+ *   │     └ M                 ├ H
  *
- * └ F └ X/i
+ *   └ F                         └ X/i
  *
- * ├ H
+ *     ├ H
  *
- * └ X
+ *     └ X
  *
- *  └ i
+ *      └ i
  *
  * 收缩规则：
  *
- * • 若某目录仅有一个子目录，则把这个子目录收缩到其父目录，展示为一个新目录。如图所示，i 收缩到 X 变成新的目录 X/i。
+ * •         若某目录仅有一个子目录，则把这个子目录收缩到其父目录，展示为一个新目录。如图所示，i 收缩到 X 变成新的目录 X/i。
  *
- * •所有符合上述条件的均需收缩，收缩后符合上述条件的继续收缩，直到无法收缩。如图所示，目录B、C、E收缩为新的目录 B/C/E
+ * •        所有符合上述条件的均需收缩，收缩后符合上述条件的继续收缩，直到无法收缩。如图所示，目录B、C、E收缩为新的目录 B/C/E
  *
  * 现给定一个原目录树 orgTree，请按照收缩规则展示为一个新目录树，求新目录树中深度值为 depth（根节点深度为 1）的节点个数。
  *
@@ -160,53 +160,7 @@ public class Test_10 {
      * 计算目录收缩后，指定深度的节点数量
      */
     public static int getCount(String[][] orgTree, int targetDepth) {
-
-        Map<String, List<String>> tree = new HashMap<>();
-
-        // 题目说明：第一个父子节点对的父节点就是根
-        String root = orgTree[0][0];
-
-        // 1. 构造树
-        for (String[] pair : orgTree) {
-            String parent = pair[0];
-            String child = pair[1];
-
-            tree.computeIfAbsent(parent, k -> new ArrayList<>())
-                    .add(child);
-        }
-
-        // 2. DFS
-        return dfs(tree, root, 1, targetDepth);
+        return 0;
     }
 
-    private static int dfs(Map<String, List<String>> tree,
-                           String node,
-                           int currentDepth,
-                           int targetDepth) {
-
-        // 连续只有一个子节点，就进行收缩
-        while (tree.getOrDefault(node, Collections.emptyList()).size() == 1) {
-            node = tree.get(node).get(0);
-        }
-
-        // 当前收缩后的节点正好位于目标深度
-        if (currentDepth == targetDepth) {
-            return 1;
-        }
-
-        if (currentDepth > targetDepth) {
-            return 0;
-        }
-
-        int count = 0;
-
-        // 有多个子节点，进入下一层
-        for (String child :
-                tree.getOrDefault(node, Collections.emptyList())) {
-
-            count += dfs(tree, child, currentDepth + 1, targetDepth);
-        }
-
-        return count;
-    }
 }

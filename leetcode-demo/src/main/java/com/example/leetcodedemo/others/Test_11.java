@@ -60,6 +60,7 @@ public class Test_11 {
         // 循环数组，所以遍历两遍
         for (int i = 0; i < 2 * n; i++) {
 
+            // 余数
             int index = i % n;
 
             // 当前数字比栈顶数字大
