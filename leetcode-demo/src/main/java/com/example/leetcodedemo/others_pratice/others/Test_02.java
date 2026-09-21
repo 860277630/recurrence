@@ -37,6 +37,33 @@ public class Test_02 {
 
 
     public static int getTestCount(int n, int[] confirmed, int[][] matrix) {
-      return 0;
+        boolean[] visited = new boolean[n];
+        Queue<Integer> queue = new LinkedList<>();
+
+        //  标记已经确认的
+        for (int i : confirmed) {
+            visited[i] = true;
+            queue.offer(i);
+        }
+        //  找到传播链上的所有人，并标记
+        while(!queue.isEmpty()){
+            int person  = queue.poll();
+            //  然后找到 跟这个人有交集的地方
+            for(int  i = 0;i<n;i++){
+                if(matrix[person][i] == 1&& !visited[i]){
+                    visited[i] = true;
+                    queue.offer(i);
+                }
+            }
+        }
+        //  统计所有被访问过的人
+        int count = 0;
+        for (boolean b : visited) {
+            if(b){
+                count++;
+            }
+        }
+
+      return count - confirmed.length;
     }
 }

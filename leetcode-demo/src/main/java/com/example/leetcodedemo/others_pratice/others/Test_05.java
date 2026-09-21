@@ -1,6 +1,8 @@
 package com.example.leetcodedemo.others_pratice.others;
 
 import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Set;
 
 /**
@@ -11,6 +13,20 @@ public class Test_05 {
         System.out.println(lengthOfLongestSubstring("abcabcbb"));
     }
     public static int lengthOfLongestSubstring(String s) {
-        return 0;
+        Set<Character> set = new HashSet<>();
+        int left = 0;
+        int max = 0;
+        for(int right = 0;right<s.length();right++){
+            char c = s.charAt(right);
+            //  如果包含了就一直退出
+            while(set.contains(c)){
+                set.remove(s.charAt(left));
+                left++;
+            }
+            set.add(c);
+            max = Math.max(max,right - left+1);
+        }
+
+        return max;
     }
 }
